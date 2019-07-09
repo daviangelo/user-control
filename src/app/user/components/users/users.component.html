@@ -1,0 +1,67 @@
+<div>
+  <h3>Lista de Usuários</h3>
+</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Nome </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+  </ng-container>
+
+
+  <!-- CPF Column -->
+  <ng-container matColumnDef="cpf">
+    <th mat-header-cell *matHeaderCellDef> CPF </th>
+    <td mat-cell *matCellDef="let element"> {{element.cpf}} </td>
+  </ng-container>
+
+  <!-- Telephone Column -->
+  <ng-container matColumnDef="telephone">
+    <th mat-header-cell *matHeaderCellDef> Telefone </th>
+    <td mat-cell *matCellDef="let element"> {{element.telephone}} </td>
+  </ng-container>
+
+  <!-- Role Column -->
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef> Perfil </th>
+    <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action-edit">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let element">
+        <a routerLink="../user-edit/{{element.id}}" style="cursor: pointer" alt="Editar" title="Editar"  *ngIf="isAdmin()" >
+            <mat-icon color="primary" matTooltip="Editar">
+                edit
+            </mat-icon>
+        </a>
+      <!-- <button mat-flat-button color="accent" routerLink="user-detail/{{element.id}}" selected>Detalhe
+      </button> -->
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action-delete">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element">
+          <a (click)="removeUser(element.name, element.id)" style="cursor: pointer" alt="Excluir" title="Excluir"  *ngIf="isNotActualUser(element.email) && isAdmin()"  >
+              <mat-icon color="warn" matTooltip="Excluir">
+                  delete
+              </mat-icon>
+          </a>
+        <!-- <button mat-flat-button color="accent" routerLink="user-detail/{{element.id}}" selected>Detalhe
+        </button> -->
+      </td>
+    </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
